@@ -117,12 +117,15 @@ The contact form is connected with Netlify Forms. The form in `index.html` uses:
 
 - `name="contact"`
 - `method="POST"`
+- `netlify`
 - `data-netlify="true"`
 - `netlify-honeypot="bot-field"`
+- `data-netlify-honeypot="bot-field"`
 - A hidden `form-name` field
-- `action="/thank-you.html"`
+- `action="/"`
+- JavaScript submission to Netlify with a redirect to `/thank-you.html` after success
 
-After deploying to Netlify, submit one test message and check **Site configuration > Forms** or the **Forms** tab in your Netlify dashboard. If Netlify does not detect the form, trigger a fresh production deploy after committing the updated `index.html`.
+After deploying to Netlify, open the live page source and confirm the `contact` form is present in the HTML. Then submit one test message and check **Project configuration > Forms** or the **Forms** tab in your Netlify dashboard. If the form still does not appear, trigger a fresh production deploy after committing the updated `index.html`.
 
 ## Confidentiality Reminder
 

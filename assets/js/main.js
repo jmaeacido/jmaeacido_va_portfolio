@@ -138,7 +138,13 @@ modal?.addEventListener("click", (event) => {
   }
 });
 
-contactForm?.addEventListener("submit", (event) => {
+function encodeFormData(formData) {
+  return new URLSearchParams(formData).toString();
+}
+
+contactForm?.addEventListener("submit", async (event) => {
+  event.preventDefault();
+
   const fields = [...contactForm.querySelectorAll("input, textarea")];
   let isValid = true;
 
@@ -152,14 +158,34 @@ contactForm?.addEventListener("submit", (event) => {
     }
   });
 
-  if (!isValid) {
-    event.preventDefault();
-  }
-
   if (formNote) {
     formNote.textContent = isValid
       ? "Sending your message..."
       : "Please complete the required fields before sending.";
+  }
+
+  if (!isValid) return;
+
+  const submitButton = contactForm.querySelector("button[type='submit']");
+  submitButton?.setAttribute("disabled", "true");
+
+  try {
+    const response = await fetch("/", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: encodeFormData(new FormData(contactForm))
+    });
+
+    if (!response.ok) {
+      throw new Error("Form submission failed");
+    }
+
+    window.location.href = "/thank-you.html";
+  } catch (error) {
+    if (formNote) {
+      formNote.textContent = "Sorry, the message could not be sent. Please email me directly at 94jmaea94@gmail.com.";
+    }
+    submitButton?.removeAttribute("disabled");
   }
 });
 
