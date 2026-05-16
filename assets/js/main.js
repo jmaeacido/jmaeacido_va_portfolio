@@ -139,8 +139,6 @@ modal?.addEventListener("click", (event) => {
 });
 
 contactForm?.addEventListener("submit", (event) => {
-  event.preventDefault();
-
   const fields = [...contactForm.querySelectorAll("input, textarea")];
   let isValid = true;
 
@@ -154,9 +152,13 @@ contactForm?.addEventListener("submit", (event) => {
     }
   });
 
+  if (!isValid) {
+    event.preventDefault();
+  }
+
   if (formNote) {
     formNote.textContent = isValid
-      ? "Thanks. The form UI is valid, but no backend is connected yet."
+      ? "Sending your message..."
       : "Please complete the required fields before sending.";
   }
 });

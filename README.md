@@ -2,7 +2,7 @@
 
 A modern static portfolio website for **John Mark Agustin E. Acido**, positioned as a Developer VA, Technical VA, and Web Developer.
 
-The site is built with plain HTML, CSS, and JavaScript. It has no backend and is ready for free hosting on GitHub Pages, Netlify, or any static hosting provider.
+The site is built with plain HTML, CSS, and JavaScript. It has no custom backend and is ready for free hosting on GitHub Pages, Netlify, or any static hosting provider.
 
 ## Features
 
@@ -14,7 +14,7 @@ The site is built with plain HTML, CSS, and JavaScript. It has no backend and is
 - Smooth scrolling
 - Subtle scroll reveal animations
 - Project category filtering
-- UI-only contact form with visual validation
+- Netlify Forms contact form with visual validation and spam honeypot field
 - Confidentiality-friendly project placeholders
 - Resume download link pointing to `assets/resume/John_Mark_Acido_Resume.pdf`
 
@@ -43,7 +43,7 @@ Edit `index.html` to update:
 - Project titles, descriptions, tech stacks, and categories
 - Experience timeline entries
 - Testimonial placeholders
-- Contact links for email, GitHub, LinkedIn, and Facebook
+- Contact links for email, GitHub, and Facebook
 
 Edit `assets/css/style.css` to update:
 
@@ -55,7 +55,7 @@ Edit `assets/js/main.js` only if you want to change:
 
 - Theme toggle behavior
 - Project filtering
-- Contact form validation
+- Contact form validation and Netlify Forms settings
 - Project details modal text
 - Scroll animations or active navigation
 
@@ -111,14 +111,18 @@ https://your-username.github.io/repository-name/
 
 You can also connect the GitHub repository to Netlify for automatic deploys.
 
-## Contact Form Note
+## Contact Form
 
-The contact form is currently UI-only and does not send messages. Later, it can be connected to:
+The contact form is connected with Netlify Forms. The form in `index.html` uses:
 
-- Netlify Forms
-- Formspree
-- A `mailto:` workflow
-- A custom backend if needed
+- `name="contact"`
+- `method="POST"`
+- `data-netlify="true"`
+- `netlify-honeypot="bot-field"`
+- A hidden `form-name` field
+- `action="/thank-you.html"`
+
+After deploying to Netlify, submit one test message and check **Site configuration > Forms** or the **Forms** tab in your Netlify dashboard. If Netlify does not detect the form, trigger a fresh production deploy after committing the updated `index.html`.
 
 ## Confidentiality Reminder
 
